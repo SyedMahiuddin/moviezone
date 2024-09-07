@@ -104,6 +104,7 @@ class DetailsPage extends StatelessWidget {
     final movie = movieController.selectedMovie[0];
 
     return Scaffold(
+      backgroundColor: ColorHelper.primaryTheme,
       body: Padding(
         padding: EdgeInsets.all(16.w),
         child: ListView(
@@ -140,11 +141,11 @@ class DetailsPage extends StatelessWidget {
 
             IconButton(onPressed: (){
               movieController.removeFromFav(movie);
-            }, icon: const Icon(Icons.favorite)): IconButton(onPressed: (){
+            }, icon: const Icon(Icons.favorite,color: Colors.white,)): IconButton(onPressed: (){
               movieController.addToFav(movie);
 
             }, icon:
-            const Icon(Icons.bookmark_add_outlined)
+            const Icon(Icons.bookmark_add_outlined,color: Colors.white,)
             ))
               ],
             ),
