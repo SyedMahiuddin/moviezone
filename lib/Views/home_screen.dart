@@ -4,12 +4,19 @@ import 'package:get/get.dart';
 import 'package:moviezone/Controller/movie_controller.dart';
 import 'package:moviezone/Helpers/common_components.dart';
 import 'package:moviezone/Helpers/space_helper.dart';
+import 'package:moviezone/Model/genre_model.dart';
 
 import '../Helpers/color_helper.dart';
 import 'movie_poster.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   MovieController movieController=Get.put(MovieController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +31,7 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-          
+
                   CircleAvatar(
                     backgroundImage: NetworkImage(
                         'https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1725408000&semt=ais_hybrid'),
@@ -80,7 +87,41 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               CommonComponents().printText(fontSize: 20,color: ColorHelper.primaryText, textData: "Trending now", fontWeight: FontWeight.bold),
-             SpaceHelper.verticalSpace10,
+             Obx(()=> movieController.myGenreList.isEmpty?const SizedBox():  SizedBox(
+               height: 30.h,
+               child:
+               ListView.builder(
+                 scrollDirection: Axis.horizontal,
+                 itemCount: movieController.myGenreList.length,
+                 itemBuilder: (context, index) {
+                   var genre=movieController.myGenreList[index];
+                   return GestureDetector(
+                     onTap: (){
+                       setState(() {
+                         movieController.selectedGenre.clear();
+                         movieController.selectedGenre.add(genre);
+                       });
+                     },
+                     child: Container(
+                       decoration: BoxDecoration(
+                         border: Border(
+                           bottom: BorderSide(
+                             color: movieController.selectedGenre.any((item) => item.name == genre.name)? Colors.white:Colors.grey,
+                             width: 3.0, // Adjust the width as needed
+                           ),
+                         ),
+                       ),
+                       height: 30.h,
+                       child: Center(child: Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: CommonComponents().printText(fontSize: 16, textData: genre.name, fontWeight: FontWeight.bold),
+                       )),
+                     ),
+                   );
+                 },
+               ),
+             ),),
+              SpaceHelper.verticalSpace10,
               SizedBox(
                 height: 300.h,
                 child: Obx(()=>

@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:moviezone/Helpers/db_helper.dart';
+import 'package:moviezone/Helpers/genre_db_helper.dart';
+import 'package:moviezone/Model/genre_model.dart';
 import 'package:moviezone/repository/movie_repo.dart';
 
 class MovieController extends GetxController{
@@ -12,7 +14,9 @@ class MovieController extends GetxController{
   void onInit() {
     loadPopularMovies();
     loadUpcomingMovies();
+    loadAllGenre();
     getFavMovies();
+    getMyGenre();
     startAutoScroll();
     super.onInit();
   }
@@ -29,8 +33,11 @@ class MovieController extends GetxController{
   Timer? autoScrollTimer;
   var popMovieList = [].obs;
   var selectedMovie=[].obs;
+  var selectedGenre=[].obs;
   var favMovies=[].obs;
   var filtering=false.obs;
+  var genreList=[].obs;
+  var myGenreList=[].obs;
 
   var upComingMovies=[].obs;
 
@@ -71,6 +78,22 @@ class MovieController extends GetxController{
     await getFavMovies();
   }
 
+  Future<void> addGenre(var genre) async{
+    await GenreDatabase.instance.insertGenre(genre);
+    await getMyGenre();
+  }
+
+  Future<void> removeGenre(var genre) async{
+    await GenreDatabase.instance.removeGenre(genre.id);
+    getMyGenre();
+  }
+
+  Future<void> getMyGenre() async{
+    myGenreList.clear();
+    myGenreList.value= await GenreDatabase.instance.getGenres();
+    log("my genres: ${myGenreList.length.toString()}");
+  }
+
   bool isFav(var movie){
     return favMovies.any((movie) => movie.title == movie.title);
   }
@@ -86,6 +109,7 @@ class MovieController extends GetxController{
       );
     }
   }
+
 var loadingPopMovies=false.obs;
   Future<void> loadPopularMovies() async {
     loadingPopMovies.value=true;
@@ -99,6 +123,17 @@ var loadingPopMovies=false.obs;
       log('Error loading movies: $e');
     }
     loadingPopMovies.value=false;
+  }
+
+  Future<void> loadAllGenre() async {
+    genreList.clear();
+    try {
+      genreList.value = await MovieRepository().fetchGenres();
+      filteredMovies.addAll(popMovieList);
+      log('Genres loaded successfully: ${popMovieList.length}');
+    } catch (e) {
+      log('Error loading genres: $e');
+    }
   }
 
   Future<void> loadUpcomingMovies() async {
