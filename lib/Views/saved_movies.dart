@@ -130,6 +130,7 @@ class MovieCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 SpaceHelper.verticalSpace10,
+
                 Align(
                   alignment: Alignment.bottomRight,
                   child: IconButton(
