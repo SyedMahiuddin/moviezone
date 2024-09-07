@@ -3,6 +3,18 @@ allprojects {
         google()
         mavenCentral()
     }
+
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.4' // or newer version
+        classpath 'com.google.gms:google-services:4.4.2' // or newer version
+    }
 }
 
 rootProject.buildDir = "../build"
