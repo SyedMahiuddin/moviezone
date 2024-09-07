@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,7 +12,7 @@ import '../utils/appConfig.dart';
 class MapController extends GetxController{
   late GoogleMapController mapController;
 
-  var initialPosition =  LatLng(37.7749, -122.4194).obs;
+  var initialPosition =  LatLng(23.815208, 90.414694).obs;
   var allMarkers = <Marker>{}.obs;
 
 

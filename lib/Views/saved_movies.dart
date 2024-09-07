@@ -7,6 +7,7 @@ import 'package:moviezone/Model/movie_model.dart';
 import 'package:moviezone/Views/movie_poster.dart';
 
 import '../Helpers/color_helper.dart';
+import '../Helpers/space_helper.dart';
 
 class SavedMoviesPage extends StatelessWidget {
 
@@ -105,8 +106,7 @@ class MovieCard extends StatelessWidget {
               },
             ),
           ),
-
-          SizedBox(width: 16.w),
+          SpaceHelper.horizontalSpace15,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +119,7 @@ class MovieCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8.h),
+                SpaceHelper.verticalSpace10,
                 Text(
                   description,
                   style: TextStyle(
@@ -129,7 +129,7 @@ class MovieCard extends StatelessWidget {
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 12.h),
+                SpaceHelper.verticalSpace10,
                 Align(
                   alignment: Alignment.bottomRight,
                   child: IconButton(

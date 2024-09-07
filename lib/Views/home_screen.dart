@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50.h),
+              SpaceHelper.verticalSpace40,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -79,9 +79,6 @@ class HomePage extends StatelessWidget {
                   ,
                 ],
               ),
-
-
-
               CommonComponents().printText(fontSize: 20,color: ColorHelper.primaryText, textData: "Trending now", fontWeight: FontWeight.bold),
              SpaceHelper.verticalSpace10,
               SizedBox(

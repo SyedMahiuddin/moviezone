@@ -120,8 +120,7 @@ class DetailsPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-
-            SizedBox(height: 16.h),
+            SpaceHelper.verticalSpace15,
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,8 +148,7 @@ class DetailsPage extends StatelessWidget {
             ))
               ],
             ),
-
-            SizedBox(height: 8.h),
+            SpaceHelper.verticalSpace10,
 
             Text(
               'Release Date: ${movie.releaseDate}',
@@ -160,9 +158,7 @@ class DetailsPage extends StatelessWidget {
               ),
             ),
 
-
-            SizedBox(height: 16.h),
-
+            SpaceHelper.verticalSpace15,
             Text(
               movie.overview,
               style: TextStyle(
@@ -171,15 +167,14 @@ class DetailsPage extends StatelessWidget {
                 height: 1.5,
               ),
             ),
-
-            SizedBox(height: 16.h),
+            SpaceHelper.verticalSpace15,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
                     Icon(Icons.star, color: Colors.yellow, size: 20.sp),
-                    SizedBox(width: 4.w),
+                    SpaceHelper.horizontalSpace5,
                     Text(
                       '${movie.voteAverage}/10',
                       style: TextStyle(
@@ -193,7 +188,7 @@ class DetailsPage extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.trending_up, color: Colors.green, size: 20.sp),
-                    SizedBox(width: 4.w),
+                    SpaceHelper.horizontalSpace5,
                     Text(
                       'Popularity: ${movie.popularity.toStringAsFixed(0)}',
                       style: TextStyle(
@@ -228,7 +223,7 @@ class DetailsPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16.h),
+            SpaceHelper.verticalSpace15,
           ],
         ),
       ),
