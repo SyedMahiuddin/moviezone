@@ -98,8 +98,19 @@ class _HomePageState extends State<HomePage> {
                    return GestureDetector(
                      onTap: (){
                        setState(() {
-                         movieController.selectedGenre.clear();
-                         movieController.selectedGenre.add(genre);
+                         if(movieController.selectedGenre.isNotEmpty && movieController.selectedGenre[0].name==genre.name)
+                           {
+                             movieController.selectedGenre.clear();
+                             movieController.filteredMovies.clear();
+                             movieController.filteredMovies.addAll(movieController.popMovieList);
+                           }
+                         else
+                           {
+                             movieController.selectedGenre.clear();
+                             movieController.selectedGenre.add(genre);
+                             movieController.filterbyGenre();
+                           }
+
                        });
                      },
                      child: Container(

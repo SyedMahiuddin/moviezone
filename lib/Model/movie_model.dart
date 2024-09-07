@@ -30,6 +30,19 @@ class Movie {
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
+    List<int> parseGenreIds(dynamic genreIdsJson) {
+      if (genreIdsJson is List) {
+        return List<int>.from(genreIdsJson);
+      } else if (genreIdsJson is String) {
+        return genreIdsJson
+            .split(',')
+            .map((id) => int.tryParse(id.trim()) ?? 0)
+            .toList();
+      } else {
+        return [];
+      }
+    }
+
     return Movie(
       id: json['id'],
       title: json['title'],
@@ -40,10 +53,10 @@ class Movie {
       posterPath: json['poster_path'],
       voteAverage: (json['vote_average'] as num).toDouble(),
       voteCount: json['vote_count'],
-      genreIds: [],
+      genreIds: parseGenreIds(json['genre_ids']),
       popularity: (json['popularity'] as num).toDouble(),
-      adult: false,
-      video: false,
+      adult: json['adult'] == 1,
+      video: json['video'] == 1,
     );
   }
 
@@ -58,12 +71,10 @@ class Movie {
       'poster_path': posterPath,
       'vote_average': voteAverage,
       'vote_count': voteCount,
-      'genre_ids': genreIds.toString(),
+      'genre_ids': genreIds.join(','), // Convert List<int> to comma-separated String
       'popularity': popularity,
-      'adult': 0,
-      'video': 0,
+      'adult': adult ? 1 : 0,
+      'video': video ? 1 : 0,
     };
   }
-
-
 }

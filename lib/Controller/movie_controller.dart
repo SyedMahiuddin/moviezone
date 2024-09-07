@@ -91,6 +91,11 @@ class MovieController extends GetxController{
   Future<void> getMyGenre() async{
     myGenreList.clear();
     myGenreList.value= await GenreDatabase.instance.getGenres();
+    if(myGenreList.isEmpty)
+      {
+        filteredMovies.clear();
+        filteredMovies.addAll(popMovieList);
+      }
     log("my genres: ${myGenreList.length.toString()}");
   }
 
@@ -108,6 +113,17 @@ class MovieController extends GetxController{
         popMovieList.where((movie) => movie.title.toLowerCase().contains(query.toLowerCase())).toList(),
       );
     }
+  }
+
+  void filterbyGenre(){
+    filteredMovies.clear();
+    for(var movie in popMovieList)
+      {
+        if(movie.genreIds.toString().contains(selectedGenre[0].id.toString()))
+          {
+            filteredMovies.add(movie);
+          }
+      }
   }
 
 var loadingPopMovies=false.obs;
